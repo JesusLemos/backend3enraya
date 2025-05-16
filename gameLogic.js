@@ -38,13 +38,13 @@ function isBoardEmpty(board) {
 }
 
 function getNextMove(board, player) {
-  /* if (isGameOver(board)) {
+  if (isGameOver(board)) {
     return null;
   }
 
   if (isBoardFull(board)) {
     return null;
-  }*/
+  }
 
   const bestMove = findBestMove(board, player);
   return bestMove;
@@ -115,4 +115,33 @@ function chooseRandomMove(board) {
   return emptyCells[randomIndex];
 }
 
-module.exports = { chooseFirstMove, isBoardEmpty, getNextMove };
+function checkWinner(board) {
+  const winningCombinations = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8], // Filas
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8], // Columnas
+    [0, 4, 8],
+    [2, 4, 6], // Diagonales
+  ];
+
+  for (const combo of winningCombinations) {
+    const [a, b, c] = combo;
+    if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+      return board[a]; // Devuelve el símbolo del ganador ('X' u 'O')
+    }
+  }
+  return null; // No hay ganador
+}
+
+function isBoardFull(board) {
+  return board.every((cell) => cell !== null);
+}
+
+function isGameOver(board) {
+  return checkWinner(board) !== null || isBoardFull(board);
+}
+
+module.exports = { checkWinner, isGameOver, getNextMove };
