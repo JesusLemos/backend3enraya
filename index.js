@@ -6,12 +6,15 @@ const { getNextMove, checkWinner, isGameOver } = require("./gameLogic");
 
 app.use(express.json());
 
-app.post("/next-move", (req, res) => {
+app.post("/next-move", async (req, res) => {
   try {
     const board = req.body.board;
     if (!board || board.length !== 9) {
       return res.status(400).json({ error: "Invalid board" });
     }
+
+    //Para que no se resuelva al instante
+    await new Promise((resolve) => setTimeout(resolve, 750));
 
     const iaMove = getNextMove(board, "O");
     const winner = checkWinner(board);
