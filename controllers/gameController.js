@@ -1,5 +1,5 @@
 // controllers/gameController.js
-const { getNextMove, checkWinner, isGameOver } = require("../gameLogic");
+const { getNextMove, checkWinner, isGameOver } = require("../utils/gameLogic");
 const db = require("../database"); // Importa la conexión a la DB
 
 exports.handlePlayerMove = async (req, res) => {
