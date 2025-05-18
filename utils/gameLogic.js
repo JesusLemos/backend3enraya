@@ -38,6 +38,10 @@ function isBoardEmpty(board) {
 }
 
 function getNextMove(board, player) {
+  if (isBoardInvalid(board)) {
+    return null;
+  }
+
   if (isGameOver(board)) {
     return null;
   }
@@ -72,6 +76,10 @@ function findBestMove(board, player) {
 }
 
 function findWinningMove(board, player) {
+  if (isBoardInvalid(board)) {
+    return null;
+  }
+
   const winningCombinations = [
     [0, 1, 2],
     [3, 4, 5],
@@ -100,6 +108,10 @@ function findWinningMove(board, player) {
 }
 
 function chooseRandomMove(board) {
+  if (isBoardInvalid(board)) {
+    return null;
+  }
+
   const emptyCells = board.reduce((acc, cell, index) => {
     if (cell === null) {
       acc.push(index);
@@ -116,6 +128,10 @@ function chooseRandomMove(board) {
 }
 
 function checkWinner(board) {
+  if (isBoardInvalid(board)) {
+    return null;
+  }
+
   const winningCombinations = [
     [0, 1, 2],
     [3, 4, 5],
@@ -141,7 +157,23 @@ function isBoardFull(board) {
 }
 
 function isGameOver(board) {
+  if (isBoardInvalid(board)) {
+    return null;
+  }
+
   return checkWinner(board) !== null || isBoardFull(board);
 }
 
-module.exports = { checkWinner, isGameOver, getNextMove, isBoardFull };
+function isBoardInvalid(board) {
+  if (!board || board.length !== 9) {
+    throw new Error("Invalid board");
+  }
+}
+
+module.exports = {
+  checkWinner,
+  isGameOver,
+  getNextMove,
+  isBoardFull,
+  isBoardInvalid,
+};
