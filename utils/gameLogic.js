@@ -144,4 +144,4 @@ function isGameOver(board) {
   return checkWinner(board) !== null || isBoardFull(board);
 }
 
-module.exports = { checkWinner, isGameOver, getNextMove };
+module.exports = { checkWinner, isGameOver, getNextMove, isBoardFull };
